@@ -1,0 +1,29 @@
+{
+  "name": "packt-publishing-claimer",
+  "version": "1.0.0",
+  "description": "Claim free Packtpub free ebooks everyday",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=6.4"
+  },
+  "author": "Srdan Srepfler",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "cheerio": "^0.22.0",
+    "node-emoji": "^1.5.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.2",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3"
+  }
+}
