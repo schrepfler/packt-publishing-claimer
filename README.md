@@ -1,3 +1,5 @@
+Code is based on mtuanp/packtpubbot but aim of this "fork" is mostly that it should run on Google Cloud.
+
 Create a project on the Cloud Projects page + Enable billing + Enable the API + Install and initialize the Cloud SDK.
 
 Install Google Cloud Functions
