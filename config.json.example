@@ -1,0 +1,11 @@
+{
+  "informBy": "",
+  "downloadAfterClaim": false,
+  "outputDirectory": null,
+  "dowloadFormat": "pdf", 
+  "packtpub": {
+    "email": "login_email",
+    "password": "login_password"
+  }
+}
+
