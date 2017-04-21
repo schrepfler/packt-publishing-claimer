@@ -1,7 +1,5 @@
 "use strict";
 
-const Client = require("./Client");
-
 /**
  * Cloud Function.
  *
@@ -16,13 +14,11 @@ exports.claimBook = function claimBook(event, callback) {
   const path = require("path");
   const fs = require("fs");
   const cheerio = require("cheerio");
-  const PushBullet = require("pushbullet");
 
   var packtpubBaseUrl = "https://www.packtpub.com";
   var packtpubDownloadEbookUrl =
     packtpubBaseUrl + "/ebook_download/{ebook_id}/{downloadFormat}";
   var packtpubFreeEbookUrl = packtpubBaseUrl + "/packt/offers/free-learning";
-  var pusher = new PushBullet(config.pushbullet.apiKey);
   var userLoginForm;
   var freeEbookUrl;
   var ebookId;
@@ -72,15 +68,7 @@ exports.claimBook = function claimBook(event, callback) {
             request(freeEbookUrl, function(error, response, body) {
               if (error) {
                 console.error("claim error", error);
-                inform(
-                  "packtpub claim bot error",
-                  "Got a error please check this!",
-                  function(error, response) {
-                    if (error) {
-                      console.error("pushbullet failure", error);
-                    }
-                  }
-                );
+                inform("Got a error please check this!");
               }
               if (!error && response.statusCode == 200) {
                 if (config.downloadAfterClaim) {
@@ -104,15 +92,7 @@ exports.claimBook = function claimBook(event, callback) {
                     );
                   });
                 }
-                inform(
-                  "packtpub claim bot",
-                  "Sir, I've just claimed " + freeEbookTitle + " for you.",
-                  function(error, response) {
-                    if (error) {
-                      console.error("pushbullet failure", error);
-                    }
-                  }
-                );
+                inform("Sir, I've just claimed " + freeEbookTitle + " for you.");
                 console.log("----- Done... -----");
               }
             });
@@ -123,29 +103,10 @@ exports.claimBook = function claimBook(event, callback) {
       );
     }
   });
+  callback();
 
-  function inform(name, content, handler) {
-    if (config.informBy == "telegram") {
-      informTelegram(
-        content,
-        config.telegram.receiverId,
-        config.telegram.botToken
-      );
-    } else if (config.informBy == "pushbullet") {
-      informPusher(name, content, handler);
-    } else {
+  function inform(content) {
       console.log(content);
-    }
   }
 
-  function informPusher(name, content, handler) {
-    pusher.note("", name, content, handler);
-  }
-
-  function informTelegram(content, receiver, token) {
-    var TelegramBot = require("node-telegram-bot-api");
-    // just send the message
-    var bot = new TelegramBot(token);
-    bot.sendMessage(receiver, content);
-  }
 };
